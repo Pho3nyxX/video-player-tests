@@ -1,0 +1,14 @@
+{
+  "name": "video-player-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open"
+  },
+  "author": "Abi Matthews-Gordon (https://abimatthewsgordon.dev)",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "cypress": "^14.0.0"
+  }
+}
