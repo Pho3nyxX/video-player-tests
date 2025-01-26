@@ -25,4 +25,26 @@ describe("verify that the user", () => {
                 expect(source).to.equal("assets/play.svg")
             });
     });
+
+    it("is able to mute a video", () => {
+		cy.get(uiPage.muteUnmuteBtn).scrollIntoView().click();
+
+		cy.get(uiPage.muteUnmuteBtn)
+			.invoke("attr", "src")
+			.then((source) => {
+				expect(source).to.equal("assets/unmute.svg");
+			});
+	});
+
+    it("is able to unmute a video", () => {
+		cy.get(uiPage.muteUnmuteBtn).scrollIntoView().click();
+        cy.wait(3000);
+        cy.get(uiPage.muteUnmuteBtn).click();
+
+		cy.get(uiPage.muteUnmuteBtn)
+			.invoke("attr", "src")
+			.then((source) => {
+				expect(source).to.equal("assets/mute.svg");
+			});
+	});
 });

@@ -6,5 +6,10 @@ class UI{
     get pauseBtn(){
         return ('.play-pause');
     }
+
+    get muteUnmuteBtn(){
+        return ('.mute-icon');
+    }
+
 }
 export default new UI();
