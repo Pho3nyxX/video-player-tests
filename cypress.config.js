@@ -5,7 +5,7 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: 'http://localhost:3000/',
+    baseUrl: 'http://localhost:5500/',
     specPattern: 'cypress/e2e/tests/**/*.cy.{js,jsx,ts,tsx}',
     defaultCommandTimeout: 15000,
   },
