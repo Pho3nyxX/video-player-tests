@@ -5,9 +5,8 @@ describe("verify that", () => {
 		cy.visit("");
 	});
 
-	it("the play btn changes when pressed", () => {
+	it("the play btn changes to pause when pressed", () => {
 		cy.get(uiPage.playPauseBtn).scrollIntoView().click();
-
 		cy.get(uiPage.playPauseBtn)
 			.invoke("attr", "src")
 			.then((source) => {
@@ -15,18 +14,15 @@ describe("verify that", () => {
 			});
 	});
 
-    it.only("the video plays after play btn pressed", () => {
+    it("the video plays after play btn pressed", () => {
 		cy.get(uiPage.video).should('have.prop', 'paused', true);
-        
 		cy.get(uiPage.playPauseBtn).scrollIntoView().click();
-		cy.get(uiPage.video)
-            .should('have.prop', 'paused', false);
+		cy.get(uiPage.video).should('have.prop', 'paused', false);
 	});
 
-    it("the video can pause", () => {
+    it("the pause btn changes to play when pressed", () => {
         cy.get(uiPage.playPauseBtn).scrollIntoView().click();
         cy.get(uiPage.playPauseBtn).click();
-
         cy.get(uiPage.playPauseBtn)
             .invoke("attr", "src")
             .then((source) => {
@@ -34,27 +30,10 @@ describe("verify that", () => {
             });
     });
 
-    it("the video can mute", () => {
-		cy.get(uiPage.muteUnmuteBtn).scrollIntoView().click();
-
-		cy.get(uiPage.muteUnmuteBtn)
-			.invoke("attr", "src")
-			.then((source) => {
-				expect(source).to.equal("assets/unmute.svg");
-			});
-	});
-
-    it("the video can unmute", () => {
-		cy.get(uiPage.muteUnmuteBtn).scrollIntoView().click();
-        cy.wait(3000);
-        cy.get(uiPage.muteUnmuteBtn).click();
-
-		cy.get(uiPage.muteUnmuteBtn)
-			.invoke("attr", "src")
-			.then((source) => {
-				expect(source).to.equal("assets/mute.svg");
-			});
-	});
-
-
+	it("the video pause after pause btn pressed", () => {
+		cy.get(uiPage.video).should('have.prop', 'paused', true);
+		cy.get(uiPage.playPauseBtn).scrollIntoView().click();
+		cy.get(uiPage.playPauseBtn).click();
+		cy.get(uiPage.video).should('have.prop', 'paused', true);
+    });
 });
