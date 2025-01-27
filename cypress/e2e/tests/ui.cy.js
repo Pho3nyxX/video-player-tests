@@ -1,32 +1,41 @@
 import uiPage from "../pageObjects/ui.page";
 
-describe("verify that the user", () => {
+describe("verify that", () => {
 	beforeEach(() => {
 		cy.visit("");
 	});
 
-	it("is able to play a video", () => {
-		cy.get(uiPage.playBtn).scrollIntoView().click();
+	it("the play btn changes when pressed", () => {
+		cy.get(uiPage.playPauseBtn).scrollIntoView().click();
 
-		cy.get(uiPage.playBtn)
+		cy.get(uiPage.playPauseBtn)
 			.invoke("attr", "src")
 			.then((source) => {
 				expect(source).to.equal("assets/pause.svg");
 			});
 	});
 
-    it("is able to pause a video", () => {
-        cy.get(uiPage.playBtn).scrollIntoView().click();
-        cy.get(uiPage.pauseBtn).click();
+    it.only("the video plays after play btn pressed", () => {
+		cy.get(uiPage.playPauseBtn).scrollIntoView().click();
+		cy.get(uiPage.video)
+            .should('have.prop', 'paused', false)
+            .then((video) => {
+                video[0].play()
+              })
+	});
 
-        cy.get(uiPage.pauseBtn)
+    it("the video can pause", () => {
+        cy.get(uiPage.playPauseBtn).scrollIntoView().click();
+        cy.get(uiPage.playPauseBtn).click();
+
+        cy.get(uiPage.playPauseBtn)
             .invoke("attr", "src")
             .then((source) => {
                 expect(source).to.equal("assets/play.svg")
             });
     });
 
-    it("is able to mute a video", () => {
+    it("the video can mute", () => {
 		cy.get(uiPage.muteUnmuteBtn).scrollIntoView().click();
 
 		cy.get(uiPage.muteUnmuteBtn)
@@ -36,7 +45,7 @@ describe("verify that the user", () => {
 			});
 	});
 
-    it("is able to unmute a video", () => {
+    it("the video can unmute", () => {
 		cy.get(uiPage.muteUnmuteBtn).scrollIntoView().click();
         cy.wait(3000);
         cy.get(uiPage.muteUnmuteBtn).click();
@@ -47,4 +56,6 @@ describe("verify that the user", () => {
 				expect(source).to.equal("assets/mute.svg");
 			});
 	});
+
+
 });
