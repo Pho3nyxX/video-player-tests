@@ -16,12 +16,11 @@ describe("verify that", () => {
 	});
 
     it.only("the video plays after play btn pressed", () => {
+		cy.get(uiPage.video).should('have.prop', 'paused', true);
+        
 		cy.get(uiPage.playPauseBtn).scrollIntoView().click();
 		cy.get(uiPage.video)
-            .should('have.prop', 'paused', false)
-            .then((video) => {
-                video[0].play()
-              })
+            .should('have.prop', 'paused', false);
 	});
 
     it("the video can pause", () => {

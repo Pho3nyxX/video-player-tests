@@ -1,4 +1,8 @@
 class UI{
+    get video(){
+        return ('.video');
+    }
+
     get playPauseBtn(){
         return ('.play-pause');
     }
@@ -10,13 +14,5 @@ class UI{
     get settingsBtn(){
         return ('.settings-menu');
     }
-
-
-    get video(){
-        return ('.video');
-    }
-
-    
-
 }
 export default new UI();
