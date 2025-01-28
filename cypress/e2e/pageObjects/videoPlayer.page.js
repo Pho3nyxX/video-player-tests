@@ -1,4 +1,4 @@
-class UI{
+class videoPlayer{
     get video(){
         return ('.video');
     }
@@ -39,12 +39,8 @@ class UI{
         return ('.scrub-bar');
     }
 
-    get scrubProgress(){
-        return ('.scrub-progress');
-    }
-
     get scrubCircle(){
         return ('.scrub-circle');
     }
 }
-export default new UI();
+export default new videoPlayer();
