@@ -34,5 +34,17 @@ class UI{
     get qualityMenu(){
         return ('#qualityMenu');
     }
+
+    get scrubBar(){
+        return ('.scrub-bar');
+    }
+
+    get scrubProgress(){
+        return ('.scrub-progress');
+    }
+
+    get scrubCircle(){
+        return ('.scrub-circle');
+    }
 }
 export default new UI();

@@ -145,9 +145,9 @@ describe("verify that", () => {
 		cy.get(uiPage.video)
 			.scrollIntoView()
 			.then((video) => {
-				video[0].load()
+				video[0].load();
 		  })
-		cy.get(uiPage.video).should('have.prop', 'duration', 253.933424)
+		cy.get(uiPage.video).should('have.prop', 'duration', 253.933424);
 	});
 
 	it("the video duration is unknown", () => {
@@ -155,5 +155,41 @@ describe("verify that", () => {
 		cy.get(uiPage.video).should((video) => {
 			expect(video[0].duration).to.be.gt(0)
 		})
-	})
+	});
+
+	it("clicking progress bar increases current time of video", () => {
+		cy.get(uiPage.video).scrollIntoView();
+
+		cy.get(uiPage.video).should((video) => {
+			expect(video[0].duration).to.be.gt(0)
+		})
+
+		cy.get(uiPage.video).should('have.prop', 'seeking', false);
+		cy.get(uiPage.video).should('have.prop', 'currentTime', 0);
+		cy.get(uiPage.scrubBar).click();
+
+		cy.get(uiPage.video).should((video) => {
+			expect(video[0].currentTime).to.be.gt(0);
+		})
+	});
+
+	it("sliding progress bar increases current time of video", () => {
+		cy.get(uiPage.video).scrollIntoView();
+
+		cy.get(uiPage.video).should((video) => {
+			expect(video[0].duration).to.be.gt(0)
+		})
+
+		cy.get(uiPage.video).should('have.prop', 'seeking', false);
+		cy.get(uiPage.video).should('have.prop', 'currentTime', 0);
+
+		cy.get(uiPage.scrubCircle)
+			.trigger('mousedown')
+			.trigger('mousemove', { movementX: 410 })
+			.trigger('mouseup')
+
+		cy.get(uiPage.video).should((video) => {
+			expect(video[0].currentTime).to.be.gt(0);
+		})
+	});
 });
