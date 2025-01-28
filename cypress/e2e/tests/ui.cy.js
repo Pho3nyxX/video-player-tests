@@ -20,6 +20,25 @@ describe("verify that", () => {
 		cy.get(uiPage.video).should('have.prop', 'paused', false);
 	});
 
+	it("user can control video play", () => {
+		cy.get(uiPage.video)
+			.scrollIntoView()
+			.then((video) => {
+				video[0].play()
+		  })
+		cy.get(uiPage.video).should('have.prop', 'paused', false)
+	});
+
+	it("user can control video pause", () => {
+		cy.get(uiPage.video)
+			.scrollIntoView()
+			.then((video) => {
+				video[0].play()
+				video[0].pause()
+		  })
+		cy.get(uiPage.video).should('have.prop', 'paused', true)
+	});
+
     it("the pause btn changes to play when pressed", () => {
         cy.get(uiPage.playPauseBtn).scrollIntoView().click();
         cy.get(uiPage.playPauseBtn).click();
@@ -93,7 +112,7 @@ describe("verify that", () => {
 	it("clicking 2x speed increase the video speed", () => {
 		cy.get(uiPage.settingsBtn).scrollIntoView().click();
 		cy.get(uiPage.playbackSpeedLink).click();
-		cy.get('video').then((video) => {
+		cy.get(uiPage.video).then((video) => {
 			video[0].playbackRate = 2
 			video[0].play()
 		  })
@@ -122,4 +141,19 @@ describe("verify that", () => {
 		cy.get(uiPage.playbackSpeedLink).should("be.visible");
 	});
 
+	it("the video duration is known", () => {
+		cy.get(uiPage.video)
+			.scrollIntoView()
+			.then((video) => {
+				video[0].load()
+		  })
+		cy.get(uiPage.video).should('have.prop', 'duration', 253.933424)
+	});
+
+	it("the video duration is unknown", () => {
+		cy.get(uiPage.video).scrollIntoView();
+		cy.get(uiPage.video).should((video) => {
+			expect(video[0].duration).to.be.gt(0)
+		})
+	})
 });
