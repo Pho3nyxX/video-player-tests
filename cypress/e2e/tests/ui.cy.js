@@ -58,4 +58,68 @@ describe("verify that", () => {
 		cy.get(uiPage.muteUnmuteBtn).click();
 		cy.get(uiPage.video).should('have.prop', 'muted', false);
     });
+
+	it("the settings menu is shown when the settings btn is pressed", () => {
+		cy.get(uiPage.settingsBtn).scrollIntoView().click();
+		cy.get(uiPage.playbackSpeedLink).should("be.visible");
+		cy.get(uiPage.qualityLink).should("be.visible");
+	});
+
+	it("playback speed menu opens when btn is pressed", () => {
+		cy.get(uiPage.settingsBtn).scrollIntoView().click();
+		cy.get(uiPage.playbackSpeedLink).click();
+		cy.get(uiPage.playbackSpeedMenu).should("be.visible");
+	});
+
+	it("normal speed is selected by default", () => {
+		cy.get(uiPage.settingsBtn).scrollIntoView().click();
+		cy.get(uiPage.playbackSpeedLink).click();
+		cy.get(uiPage.video).should('have.prop', 'defaultPlaybackRate', 1)
+		cy.get("#playbackSpeedMenu")
+			.find("[alt=tick]")
+			.should("be.visible")
+	});
+
+	it("clicking 0.5 speed decrease the video speed", () => {
+		cy.get(uiPage.settingsBtn).scrollIntoView().click();
+		cy.get(uiPage.playbackSpeedLink).click();
+		cy.get("#playbackSpeedMenu li:nth-child(2)").click();
+		cy.get(uiPage.video).should('have.prop', 'playbackRate', 0.5)
+		cy.get("#playbackSpeedMenu")
+			.find("[alt=tick]")
+			.should("be.visible")
+	});
+
+	it("clicking 2x speed increase the video speed", () => {
+		cy.get(uiPage.settingsBtn).scrollIntoView().click();
+		cy.get(uiPage.playbackSpeedLink).click();
+		cy.get('video').then((video) => {
+			video[0].playbackRate = 2
+			video[0].play()
+		  })
+		cy.get(uiPage.video).should('have.prop', 'playbackRate', 2)
+	});
+
+	it("clicking playback speed twice exits playback speed menu", () => {
+		cy.get(uiPage.settingsBtn).scrollIntoView().click();
+		cy.get(uiPage.playbackSpeedLink).click();
+		cy.get(uiPage.playbackSpeedLink).click();
+		cy.get(uiPage.playbackSpeedLink).should("be.visible");
+		cy.get(uiPage.qualityLink).should("be.visible");
+	});
+
+	it("quality menu opens when btn is pressed", () => {
+		cy.get(uiPage.settingsBtn).scrollIntoView().click();
+		cy.get(uiPage.qualityLink).click();
+		cy.get(uiPage.qualityMenu).should("be.visible");
+	});
+
+	it("clicking quality twice exits quality menu", () => {
+		cy.get(uiPage.settingsBtn).scrollIntoView().click();
+		cy.get(uiPage.qualityLink).click();
+		cy.get(uiPage.qualityLink).click();
+		cy.get(uiPage.qualityLink).should("be.visible");
+		cy.get(uiPage.playbackSpeedLink).should("be.visible");
+	});
+
 });
